@@ -5,54 +5,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quadratic Function Plotter</title>
     <style>
-body { text-align: center; }
-canvas { margin: 20px auto; display: block; border: 1px solid black; }
+    body { text-align: center; }
+    canvas { margin: 20px auto; display: block; border: 1px solid white; }
+    .left {
+      position: absolute;
+      top: 100px;
+      left: 200px;
+    }
     </style>
   </head>
-  <body>
-    <canvas id="myCanvas" width="500" height="500"></canvas>
+  <body style="background-color: #100F10; color: white">
+    <div class="left">
+      <h2>Quadratic Function Plotter</h2>
+      <br>
+      <br>
+      <input type="text" id="a" placeholder="a" value="5">
+      <br>
+      <br>
+      <input type="text" id="b" placeholder="b" value="0">
+      <br>
+      <br>
+      <input type="text" id="c" placeholder="c" value="0">
+    </div>
+    <canvas id="myCanvas" width="1000" height="1000">
+
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const canvas = document.getElementById('myCanvas');
-  const ctx = canvas.getContext('2d');
+
+const plotQuadraticFunction = () => {
+  const canvas = document.getElementById('myCanvas')
+  const ctx = canvas.getContext('2d')
 
   function quadraticFunction(x) {
-    const a = 1; // Coefficient of x^2
-    const b = 0; // Coefficient of x
-    const c = 0; // Constant term
+    const a = Number(document.getElementById('a').value)
+    const b = Number(document.getElementById('b').value)
+    const c = Number(document.getElementById('c').value)
+
     return a * Math.pow(x, 2) + b * x + c;
   }
 
   const width = canvas.width;
   const height = canvas.height;
-  const scale = 100;
+  const scale = 20;
 
-  ctx.beginPath();
-  ctx.moveTo(0, height / 2);
-  ctx.lineTo(width, height / 2);
-  ctx.moveTo(width / 2, 0);
-  ctx.lineTo(width / 2, height);
-  ctx.strokeStyle = 'black';
-  ctx.stroke();
 
-  ctx.beginPath();
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-  const x = -width / (2 * scale)
 
-  console.log(x)
-  
-  const result = quadraticFunction(x) * scale
+  ctx.strokeStyle = 'white';
+  ctx.beginPath()
+  ctx.moveTo(0, height / 2)
+  ctx.lineTo(width, height / 2)
+  ctx.moveTo(width / 2, 0)
+  ctx.lineTo(width / 2, height)
+  ctx.strokeStyle = 'white';
+  ctx.stroke()
 
-  console.log(result)
+  ctx.beginPath()
+  ctx.moveTo(0, height / 2)
 
-  ctx.moveTo(0, height / 2 - 0);
-  for (let x = -width / 2; x < width / 2; x++) {
-    let y = quadraticFunction(x / scale);
-    ctx.lineTo(width / 2 + x, height / 2 - y * scale);
+  for (let x = 0; x < width; x +=scale) {
+    ctx.beginPath()
+    ctx.fillStyle = 'white';
+    ctx.fillText(x / scale, width / 2 + x, height / 2 + 20)
+    ctx.fillText(-x / scale, width / 2 - x, height / 2 + 20)
+  }
+
+  for (let y = 0; y < height; y += scale) {
+    ctx.beginPath()
+    ctx.fillStyle = 'white';
+    ctx.fillText(-y / scale, width / 2 + 10, height / 2 + y)
+    ctx.fillText(y / scale, width / 2 + 10, height / 2 - y)
+  }
+
+  const minX = -width / 2;
+  const maxX = width / 2;
+
+  for (let x = minX; x < maxX; x++) {
+    let y = quadraticFunction(x / scale)
+    ctx.lineTo(width / 2 + x * scale, height / 2 - y * scale)
   }
   ctx.strokeStyle = 'blue';
-  ctx.stroke();
-});
+  ctx.stroke()
+}
+
+document.addEventListener("DOMContentLoaded", plotQuadraticFunction)
+
+const inputA = document.getElementById('a') 
+inputA.addEventListener('input', plotQuadraticFunction)
+
+const inputB = document.getElementById('b')
+inputB.addEventListener('input', plotQuadraticFunction)
+
+const inputC = document.getElementById('c')
+inputC.addEventListener('input', plotQuadraticFunction)
     </script>
   </body>
 </html>
