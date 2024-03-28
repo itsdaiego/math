@@ -1,36 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quadratic Function Plotter</title>
-    <style>
-    body { text-align: center; }
-    canvas { margin: 20px auto; display: block; border: 1px solid white; }
-    .left {
-      position: absolute;
-      top: 100px;
-      left: 200px;
-    }
-    </style>
-  </head>
-  <body style="background-color: #100F10; color: white">
-    <div class="left">
-      <h2>Quadratic Function Plotter</h2>
-      <br>
-      <br>
-      <input type="text" id="a" placeholder="a" value="5">
-      <br>
-      <br>
-      <input type="text" id="b" placeholder="b" value="0">
-      <br>
-      <br>
-      <input type="text" id="c" placeholder="c" value="0">
-    </div>
-    <canvas id="myCanvas" width="1000" height="1000">
-
-    <script>
-
 const plotQuadraticFunction = () => {
   const canvas = document.getElementById('myCanvas')
   const ctx = canvas.getContext('2d')
@@ -98,7 +65,3 @@ inputB.addEventListener('input', plotQuadraticFunction)
 
 const inputC = document.getElementById('c')
 inputC.addEventListener('input', plotQuadraticFunction)
-    </script>
-  </body>
-</html>
-
